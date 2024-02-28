@@ -26,9 +26,6 @@ return new class extends Migration
             $table->string('github')->nullable();
             $table->string('facebook')->nullable();
             $table->string('bio')->nullable();
-            $table->unsignedBigInteger('city_id');
-            $table->unsignedBigInteger('university_id');
-            $table->unsignedBigInteger('salary_id');
             $table->foreign('city_id')->references('id')->on('cities')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('university_id')->references('id')->on('universities')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('salary_id')->references('id')->on('salaries')->onUpdate('cascade')->onDelete('cascade');

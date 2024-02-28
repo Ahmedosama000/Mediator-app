@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('salaries', function (Blueprint $table) {
+        Schema::create('cvs', function (Blueprint $table) {
             $table->id();
-            $table->smallInteger('min');
-            $table->integer('max');
-            $table->string('currency');
-            $table->string('frequency');
+            $table->string('file')->default('default.pdf');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('salaries');
+        Schema::dropIfExists('cvs');
     }
 };
