@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('socials')->nullable();
             $table->string('about')->nullable();
             $table->foreignId('service_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('field_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });
