@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name',30);
             $table->string('last_name',30);
+            $table->string('device_name',30);
             $table->string('email',64)->unique();
             $table->string('password',128);
             $table->timestamp('email_verified_at')->nullable();
