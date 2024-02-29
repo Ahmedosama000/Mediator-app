@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('first_name',30);
             $table->string('last_name',30);
             $table->string('email',64)->unique();
-            $table->string('password',64);
+            $table->string('password',128);
             $table->timestamp('email_verified_at')->nullable();
             $table->tinyInteger('gender')->comment('0-> male / 1-> female');
             $table->tinyInteger('status')->default(0)->comment('0-> not active / 1-> active / 2-> blocked');
