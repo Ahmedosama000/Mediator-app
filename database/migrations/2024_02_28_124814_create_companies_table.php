@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('device_name',30);
             $table->string('email',64)->unique();
             $table->string('password',64);
-            $table->string('code',6);
-            $table->timestamp('code_expired_at');
+            $table->string('code',4)->nullable();
+            $table->timestamp('code_expired_at')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->tinyInteger('status')->default(0)->comment('0-> not active / 1-> active / 2-> blocked');
             $table->string('phone',14);
