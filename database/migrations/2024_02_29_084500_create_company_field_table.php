@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create('company_field', function (Blueprint $table) {
             $table->id();
-            $table->integer('min');
-            $table->integer('max');
-            $table->string('currency',32);
-            $table->string('requirements');
             $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('field_id');
             $table->foreign('company_id')->references('id')->on('companies')->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamps();
+            $table->foreign('field_id')->references('id')->on('fields')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('company_field');
     }
 };

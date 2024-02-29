@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('trainings', function (Blueprint $table) {
             $table->id();
-            $table->string('topic');
-            $table->string('organizer');
+            $table->string('topic',128);
+            $table->string('organizer',128);
             $table->string('description');
             $table->date('from_date');
             $table->date('to_date');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->smallInteger('min');
             $table->integer('max');
-            $table->string('currency');
-            $table->string('frequency');
+            $table->string('currency',11);
+            $table->string('frequency',11);
             $table->timestamps();
         });
     }

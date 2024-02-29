@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('certifications', function (Blueprint $table) {
             $table->id();
-            $table->string('organization');
+            $table->string('organization',64);
             $table->string('title');
             $table->date('date_of_issue');
             $table->date('expiration_date');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }

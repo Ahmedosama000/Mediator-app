@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('content');
             $table->tinyInteger('status')->default(0)->comment('0-> pending / 1-> approved / 2-> canceled');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

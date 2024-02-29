@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('content');
             $table->tinyInteger('status')->default(0)->comment('0-> pending / 1-> approved / 2-> canceled');
+            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('type_id');
             $table->foreign('company_id')->references('id')->on('companies')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('type_id')->references('id')->on('posts_types')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
