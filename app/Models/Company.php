@@ -3,13 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\City;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+
+class Company extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -22,6 +22,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'device_name',
+        'website',
+        'about',
+        'service_id'
     ];
 
     /**
@@ -43,14 +48,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    public function city(){
-
-        return $this->belongsTo(City::class,'city_id');
-    }
-
-    public function university(){
-
-        return $this->belongsTo(University::class,'university_id');
-    }
 }
