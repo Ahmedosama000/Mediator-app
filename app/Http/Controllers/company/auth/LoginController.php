@@ -35,7 +35,7 @@ class LoginController extends Controller
         $IdWithBearer = explode('|',$token)[0];
         $TokenId = explode(' ',$IdWithBearer)[1];
 
-        $authenticated->token()->where('id',$TokenId)->delete();
+        $authenticated->tokens()->where('id',$TokenId)->delete();
         return $this->SuccessMessage("User logged out Successfully",200);
 
     }
