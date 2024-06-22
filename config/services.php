@@ -49,6 +49,4 @@ return [
         'key_id' => env('APPLE_KEY_ID'),    // Needed for Apple
         'private_key' => env('APPLE_PRIVATE_KEY'),  // Needed for Apple
     ],
-    
-
 ];
