@@ -43,7 +43,8 @@ return [
 
         'api' => [
             //'driver' => 'jwt',
-            'driver' => 'token',
+            //'driver' => 'token',
+            'driver' => 'sanctum',
             'provider' => 'users',
             'hash' => false,
         ],

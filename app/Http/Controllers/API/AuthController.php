@@ -31,7 +31,7 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
             // Debugging the authenticated user
-            dd($user);
+            //dd($user);
             $token = $user->createToken('auth_token')->plainTextToken;
             return response()->json(['token' => $token, 'user' => $user], 200);
         } else {
@@ -52,7 +52,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         // Debugging the request data
-        dd($request->all());
+        //dd($request->all());
         $validated = $request->validate([
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
@@ -67,16 +67,17 @@ class AuthController extends Controller
         ]);
 
         // Debugging the validated data
-        dd($validated);
+        //dd($validated);
 
         $user = User::create([
-            'name' => $validated['first_name'] . ' ' . $validated['last_name'],
+            'first_name' => $validated['first_name'] ,
+            'last_name'  =>  $validated['last_name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
 
         // Debugging the created user
-        dd($user);
+        //dd($user);
 
         if ($user) {
             return $this->login($request);
