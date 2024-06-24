@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -31,9 +33,17 @@ class PostController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'body' => 'required',
+            //'body' => 'required',
+            'content' => 'required',
         ]);
         $post = Post::create($validated);
+
+        /*$post = Post::create([
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+            'user_id' => Auth::id(), // Ensure the user_id is set to the authenticated user
+            'status' => 0, // Default status
+        ]); */
 
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
@@ -43,6 +53,7 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
+        $post = Post::findOrFail($id);
         return view('posts.show', compact('post'));
 
     }
@@ -50,10 +61,10 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    /*public function edit(string $id)
     {
         return view('posts.edit', compact('post'));
-    }
+    }*/
 
     /**
      * Update the specified resource in storage.
@@ -62,7 +73,8 @@ class PostController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'body' => 'required',
+            //'body' => 'required',
+            'content' => 'required',
         ]);
 
         $post->update($validated);
