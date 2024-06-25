@@ -25,8 +25,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
 // Protected routes
-Route::get('/test', function (Request $test) {
-    return "test";});
+/*Route::get('/test', function (Request $test) {
+    return "test";});*/
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -41,13 +41,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/upload', [FileUploadController::class, 'upload']);
 
     // RESTful API routes for posts
-    Route::middleware('auth:sanctum')->group(function () {
+    /*Route::middleware('auth:sanctum')->group(function () {
         Route::get('/posts', [PostController::class, 'index']);
         Route::get('/posts/{post}', [PostController::class, 'show']);
         Route::post('/posts', [PostController::class, 'store']);
         Route::put('/posts/{post}', [PostController::class, 'update']);
         Route::delete('/posts/{post}', [PostController::class, 'destroy']);
-    });
+    });*/
+    Route::apiResource('posts', PostController::class);
 
     // Social provider
     Route::get('/auth/{provider}', [SocialController::class, 'redirectToProvider']);
