@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('users_posts', function (Blueprint $table) {
             $table->id();
-            $table->string('content');
+            $table->string('title');
+            $table->text('content');
             $table->tinyInteger('status')->default(0)->comment('0-> pending / 1-> approved / 2-> canceled');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');

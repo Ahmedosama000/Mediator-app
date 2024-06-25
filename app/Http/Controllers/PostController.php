@@ -41,12 +41,30 @@ class PostController extends Controller
             //'body' => 'required',
             'content' => 'required',
         ]);
-        $post = Post::create([
+
+        try {
+            $post = Post::create([
+                'title' => $validated['title'],
+                'content' => $validated['content'],
+                'user_id' => Auth::id(), // Ensure the user_id is set to the authenticated user
+                'status' => 0, // Default status
+            ]);
+    
+            return response()->json($post, 201);
+    
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error creating post: '.$e->getMessage());
+    
+            return response()->json(['error' => 'An error occurred while creating the post.'], 500);
+        }
+        
+        /*$post = Post::create([
             'title' => $validated['title'],
             'content' => $validated['content'],
             'user_id' => Auth::id(), // Ensure the user_id is set to the authenticated user
             'status' => 0, // Default status
-        ]);
+        ]);*/
 
         /*$post = Post::create([
             'title' => $validated['title'],
@@ -55,7 +73,9 @@ class PostController extends Controller
             'status' => 0, // Default status
         ]); */
 
-        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+        //return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+        //return $request->post();
+        //return response()->json($post, 201);
     }
 
     /**
@@ -89,6 +109,7 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
+        $post = Post::findOrFail($id);
         $post->update($validated);
 
         return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
