@@ -11,6 +11,11 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $posts = Post::all();
@@ -36,7 +41,12 @@ class PostController extends Controller
             //'body' => 'required',
             'content' => 'required',
         ]);
-        $post = Post::create($validated);
+        $post = Post::create([
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+            'user_id' => Auth::id(), // Ensure the user_id is set to the authenticated user
+            'status' => 0, // Default status
+        ]);
 
         /*$post = Post::create([
             'title' => $validated['title'],
@@ -54,6 +64,7 @@ class PostController extends Controller
     public function show(string $id)
     {
         $post = Post::findOrFail($id);
+        //return view('posts.show', compact('post'));
         return view('posts.show', compact('post'));
 
     }
@@ -61,10 +72,11 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    /*public function edit(string $id)
+    public function edit(string $id)
     {
+        $post = Post::findOrFail($id);
         return view('posts.edit', compact('post'));
-    }*/
+    }
 
     /**
      * Update the specified resource in storage.
@@ -88,6 +100,7 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
+        $post = Post::findOrFail($id);
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
     }
