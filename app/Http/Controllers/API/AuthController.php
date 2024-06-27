@@ -60,10 +60,10 @@ class AuthController extends Controller
             'last_name' => 'required|string',
             'gender' => 'required',
             'DOB' => 'required|date',
-            'github' => 'required',
-            'university_id' => 'required|numeric',
-            'city_id' => 'required|numeric',
-            'salary_id' => 'required|numeric',
+            'github' => 'nullable',
+            'university_id' => 'required|string',
+            'city_id' => 'required|string',
+            //'salary_id' => 'required|numeric',
         ]);
 
         // Debugging the validated data

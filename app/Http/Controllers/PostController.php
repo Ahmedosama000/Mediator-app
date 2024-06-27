@@ -19,7 +19,8 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return view('posts.index', compact('posts'));
+        //return view('posts.index', compact('posts'));
+        return response()->json($posts);
     }
 
     /**
@@ -27,7 +28,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        //return view('posts.create');
+        return response()->json(['message' => 'Not applicable'], 405);
 
     }
 
@@ -58,7 +60,7 @@ class PostController extends Controller
     
             return response()->json(['error' => 'An error occurred while creating the post.'], 500);
         }
-        
+
         /*$post = Post::create([
             'title' => $validated['title'],
             'content' => $validated['content'],
@@ -85,7 +87,8 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         //return view('posts.show', compact('post'));
-        return view('posts.show', compact('post'));
+        //return view('posts.show', compact('post'));
+        return response()->json($post);
 
     }
 
@@ -95,7 +98,8 @@ class PostController extends Controller
     public function edit(string $id)
     {
         $post = Post::findOrFail($id);
-        return view('posts.edit', compact('post'));
+        //return view('posts.edit', compact('post'));
+        return response()->json(['message' => 'Not applicable'], 405);
     }
 
     /**
@@ -112,7 +116,8 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->update($validated);
 
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
+        //return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
+        return response()->json(['message' => 'Post updated successfully.', 'post' => $post]);
     
     }
 
@@ -123,6 +128,7 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $post->delete();
-        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+        //return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+        return response()->json(['message' => 'Post deleted successfully.']);
     }
 }
