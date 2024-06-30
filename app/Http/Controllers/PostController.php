@@ -14,7 +14,7 @@ class PostController extends Controller
 
      public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
     public function index()
     {
@@ -26,11 +26,22 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //return view('posts.create');
-        return response()->json(['message' => 'Not applicable'], 405);
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            //'body' => 'required',
+            'content' => 'required',
+        ]);
+        $post = Post::create([
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+            'user_id' => Auth::id(), // Ensure the user_id is set to the authenticated user
+            'status' => 0, // Default status
+        ]);
+        return response()->json($post);
 
+        
     }
 
     /**
