@@ -52,7 +52,20 @@ class PostController extends Controller
                 'status' => 0, // Default status
             ]);
     
-            return response()->json($post, 201);
+            //return response()->json($post, 201);
+            $responseData = [
+                'data' => [
+                    'id' => $post->id,
+                    'title' => $post->title,
+                    'content' => $post->content,
+                    'user_id' => $post->user_id,
+                    'status' => $post->status,
+                    'created_at' => $post->created_at->toDateTimeString(),
+                    // Assuming 'created_at' is a Carbon instance; adjust format if necessary
+                ]
+            ];
+    
+            return response()->json($responseData, 201);
     
         } catch (\Exception $e) {
             // Log the error for debugging
@@ -88,7 +101,18 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         //return view('posts.show', compact('post'));
         //return view('posts.show', compact('post'));
-        return response()->json($post);
+        //return response()->json($post);
+        return response()->json([
+            'data'=>[
+                'id'=>$post->id,
+                'title'=>$post->title,
+                'content'=>$post->content,
+                'user_id'=>$post->user_id,
+                'status'=>$post->status,
+                'created_at' => $post->created_at->toDateTimeString(),
+                'updated_at' => $post->updated_at->toDateTimeString(),
+            ]
+        ]);
 
     }
 
@@ -97,7 +121,7 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        $post = Post::findOrFail($id);
+        //$post = Post::findOrFail($id);
         //return view('posts.edit', compact('post'));
         return response()->json(['message' => 'Not applicable'], 405);
     }
@@ -117,7 +141,10 @@ class PostController extends Controller
         $post->update($validated);
 
         //return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
-        return response()->json(['message' => 'Post updated successfully.', 'post' => $post]);
+        return response()->json([
+            'message' => 'Post updated successfully.',
+            'post' => $post
+        ]);
     
     }
 

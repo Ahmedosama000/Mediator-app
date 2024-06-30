@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\SkillsController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\SocialController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,10 @@ use App\Http\Controllers\SocialController;
 // Public routes
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('users/{id}', [UserController::class, 'show']);
+});
 
 // Protected routes
 Route::get('/test', function (Request $test) {
@@ -48,8 +53,17 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/posts/{post}', [PostController::class, 'update']);
         Route::delete('/posts/{post}', [PostController::class, 'destroy']);
     });*/
-    Route::apiResource('posts', PostController::class);
+    //Route::apiResource('posts', PostController::class);
 
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('posts', [PostController::class, 'index']);
+        Route::post('posts', [PostController::class, 'store']);
+        Route::get('posts/{id}', [PostController::class, 'show']);
+        Route::put('posts/{id}', [PostController::class, 'update']);
+        Route::delete('posts/{id}', [PostController::class, 'destroy']);
+    });
+
+    
     // Social provider
     Route::get('/auth/{provider}', [SocialController::class, 'redirectToProvider']);
     Route::get('/auth/{provider}/callback', [SocialController::class, 'handleProviderCallback']);

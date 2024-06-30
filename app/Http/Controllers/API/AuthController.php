@@ -52,7 +52,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         // Debugging the request data
-        //dd($request->all());
+        // dd($request->all());
         $validated = $request->validate([
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
@@ -60,10 +60,14 @@ class AuthController extends Controller
             'last_name' => 'required|string',
             'gender' => 'required',
             'DOB' => 'required|date',
-            'github' => 'nullable',
-            'university_id' => 'required|string',
-            'city_id' => 'required|string',
-            //'salary_id' => 'required|numeric',
+            'github' => 'string',
+            'university_id' => 'required',
+            'city_id' => 'required',
+            'skills'=>'string',
+            'phone' => 'required',
+            'bio'=>'string',
+            'facebook'=>'string',
+
         ]);
 
         // Debugging the validated data
@@ -74,6 +78,17 @@ class AuthController extends Controller
             'last_name'  =>  $validated['last_name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'github' => $validated['github'],
+            'gender' => $validated['gender'],
+            'DOB' => $validated['DOB'],
+            //s
+            'skills'=>$validated['skills'],
+            'university_id'=>$validated['university_id'],
+            'city_id'=>$validated['city_id'],
+            'phone'=>$validated['phone'],
+            'bio'=>$validated['bio'],
+            'facebook'=>$validated['facebook'],
+
         ]);
 
         // Debugging the created user
